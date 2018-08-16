@@ -1,0 +1,19 @@
+# this is our development docker-compose building on top of the production docker-compose, just mounting
+# the sync image - not redefining anything else
+
+version: "2"
+services:
+  web:
+    volumes:
+    - /var/www/html
+  bg-sync:
+    image: cweagans/bg-sync
+    volumes:
+    - ./app:/source
+    volumes_from:
+    - web
+    environment:
+    - SYNC_DESTINATION=/var/www/html
+    - SYNC_MAX_INOTIFY_WATCHES=40000
+    - SYNC_VERBOSE=1
+    privileged: true

@@ -1,0 +1,8 @@
+# This is our production compose file - not changed for docker-sync or similar
+version: "2"
+
+services:
+  web:
+    image: php:7.2-apache
+    ports:
+      - "80:80"
